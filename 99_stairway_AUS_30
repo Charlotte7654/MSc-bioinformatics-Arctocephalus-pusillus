@@ -1,0 +1,14 @@
+#!/bin/bash
+#PBS -N 99_stairway_AUS_30
+#PBS -l select=1:ncpus=16:mem=10GB
+#PBS -l walltime=168:00:00
+#PBS -o logs_AUS/
+#PBS -e logs_AUS/
+#PBS -m e
+#PBS -M 25405942@sun.ac.za
+
+cd $PBS_O_WORKDIR
+
+cd ~/software/stairway_plot_v2.1/stairway_plot_v2.1.1/
+
+bash AUS_fold.blueprint_30.sh

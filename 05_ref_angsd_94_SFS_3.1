@@ -1,0 +1,20 @@
+#!/bin/bash
+#PBS -N ref_angsd_3.1_SFS
+#PBS -l select=1:ncpus=8:mem=8GB
+#PBS -l walltime=48:00:00
+#PBS -m e
+#PBS -M 25405942@sun.ac.za
+
+# Load ANGSD module
+module load app/ANGSD/0.938
+
+angsd \
+-bam ~/msc/00_info/bamlist_94 \
+      -GL 3 \
+      -out ~/msc/99_angsd/ref_angsd_3.1_SFS \
+      -tmpdir ~/angsd_tmpdir \
+      -doSaf 1 \
+      -doMaf 1 \
+      -doMajorMinor 1 \
+      -anc ~/msc/05_refmap/genome_updated/GCA_040869175.1_updated.fasta \
+      -nThreads 8

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+#PBS -N 04_multiqc_CHAR
+#PBS -l select=1:ncpus=16
+#PBS -l walltime=00:59:00
+#PBS -m e
+#PBS -M 25405942@sun.ac.za
+
+cd $PBS_O_WORKDIR
+module load app/multiqc/1.14
+
+multiqc ~/msc/04_fastqc/P01_* -o ~/msc/04_multiqc

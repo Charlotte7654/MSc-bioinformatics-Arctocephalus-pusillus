@@ -1,0 +1,15 @@
+#!/bin/bash
+#PBS -N 99_ref_angsd_folded_AUS_neutral_SFS
+#PBS -l select=1:ncpus=32:mem=20GB
+#PBS -l walltime=24:00:00
+#PBS -m e
+#PBS -M 25405942@sun.ac.za
+
+#module load 
+module load app/angsd/0.938
+
+/apps/ANGSD/angsd/misc/realSFS \
+~/msc/99_angsd/ref_angsd_AUS_allmafneutral_SFS.saf.idx \
+-fold 1 -P 32 \
+-anc ~/msc/05_refmap/genome_updated/GCA_040869175.1_updated.fasta \
+> ~/msc/99_angsd/ref_angsd_AUS_allmafneutral_SFS.sfs

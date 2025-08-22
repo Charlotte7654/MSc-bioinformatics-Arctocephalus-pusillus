@@ -1,0 +1,12 @@
+#!/bin/bash
+#PBS -N CHAR_bwa_updated
+#PBS -l select=1:ncpus=8
+#PBS -l walltime=24:00:00
+#PBS -m e
+#PBS -M 25405942@sun.ac.za
+
+module load app/bwa/0.7.13
+
+bwa index \
+~/msc/05_refmap/genome_updated/GCA_040869175.1_updated.fasta \
+ -p ~/msc/05_refmap/genome_updated/agaz_db

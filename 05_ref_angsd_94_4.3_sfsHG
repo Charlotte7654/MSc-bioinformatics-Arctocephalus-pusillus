@@ -1,0 +1,10 @@
+#!/bin/bash
+#PBS -N 05_ref_angsd_94_4.3_sfsHG
+#PBS -l select=1:ncpus=8:mem=8GB
+#PBS -l walltime=10:00:00
+#PBS -m e
+#PBS -M 25405942@sun.ac.za
+
+module load app/angsd/0.940 
+
+realSFS ~/msc/99_angsd/ref_angsd_3.1_SFS.saf.idx > ~/msc/99_angsd/ref_angsd_3.1_SFS.saf.idx.ml

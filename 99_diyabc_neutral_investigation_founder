@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#PBS -N 99_diyabc_neutral_investigation_founder
+#PBS -l select=1:ncpus=32:mem=40GB
+#PBS -l walltime=168:00:00
+#PBS -m e
+#PBS -M 25405942@sun.ac.za
+
+cd ~/software/diyabcrf_neutral_investigation_founder
+
+#Generate the seed for random data generation:
+./diyabc-RF-linux-v1.1.54 -p ./ -n "t:32"
+
+#Training set simulation:
+./diyabc-RF-linux-v1.1.54 \
+-p ./ -R "ALL" -r 4000 -g 50 -m -t 32
+
+#Duplicate ref table
+cp reftableRF.bin reftable.bin
+
+ #Prior and scenario checking:
+./diyabc-RF-linux-v1.1.54 -p ./ -d a:pl
+
+# Model choice analysis on 15000 datasets
+./abcranger-linux-v1.16.69 -n 4000 -t 1000 -j 32 -o modelchoice

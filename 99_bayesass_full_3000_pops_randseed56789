@@ -1,0 +1,28 @@
+#!/bin/bash
+
+#PBS -N 99_bayesass_full_3000_pops_rs56789
+#PBS -l select=1:ncpus=8:mem=16GB
+#PBS -l walltime=168:00:00
+#PBS -m e
+#PBS -M 25405942@sun.ac.za
+
+cd $PBS_O_WORKDIR
+module load app/BayesAss3-SNPs/current
+RANDOM_SEED=56789 
+
+BA3-SNPS \
+--file ~/modules/phy2str.pl/pops_randseed${RANDOM_SEED}/pop.str.immanc \
+--loci 3000 \
+-o ~/msc/99_bayesass/99_bayesass_full_ldfiltered_3000_pops_randseed${RANDOM_SEED} \
+-g \
+-i 5000000 \
+-b 500000 \
+-n 100 \
+-t -u -v \
+-m1.00 -a1.00 -f1.00 \
+-s ${RANDOM_SEED} # Add the -s flag here with your chosen seed
+
+#unique name for trace and indiv files 
+mv ~/modules/phy2str.pl/pops_randseed${RANDOM_SEED}/pop.str.trace.txt ~/msc/99_bayesass/BA3_pop_seed${RANDOM_SEED}.trace.txt
+mv ~/modules/phy2str.pl/pops_randseed${RANDOM_SEED}/pop.str.indiv.txt ~/msc/99_bayesass/BA3_pop_seed${RANDOM_SEED}.indiv.txt
+

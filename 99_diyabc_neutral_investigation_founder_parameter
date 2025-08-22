@@ -1,0 +1,30 @@
+#!/bin/bash
+
+#PBS -N 99_diyabc_neutral_investigation_founder_parameter
+#PBS -l select=1:ncpus=16:mem=8GB
+#PBS -l walltime=168:00:00
+#PBS -m e
+#PBS -M 25405942@sun.ac.za
+
+cd ~/software/diyabcrf_neutral_investigation_founder_parameter
+
+#Generate the seed for random data generation:
+./diyabc-RF-linux-v1.1.54 -p ./ -n "t:32"
+
+#Simulation of a training set with 10000 particles for only 
+#one scenario cf. best scenario for scenario choice ( cf. corresponding header.txt)
+./diyabc-RF-linux-v1.1.54 -p ./ -R ALL -r 10000 -g 50 -m -t 32
+
+#To estimate ra parameter of scenario 1 from the obtained training set, 
+#with PLS (cf. selection of 95% variance explaining axis)
+./abcranger-linux-v1.16.69 -n 10000 -t 1000 -j 32 --parameter ra --chosenscen 1 \
+--plsmaxvar 0.95 --noob 10000 -o estim_param_ra_with_PLS
+
+#sc 4
+for param in \
+N1 N2 r1 N2v N1a NAa NAb NAc NAd Tad1 T2a T1a Td TAa TAb TAc \
+; do
+./abcranger-linux-v1.16.69 -n 10000 -t 1000 -j 32 --parameter ra --chosenscen 1 \
+--plsmaxvar 0.95 --noob 10000 -o estim_param_ra_with_PLS
+done
+

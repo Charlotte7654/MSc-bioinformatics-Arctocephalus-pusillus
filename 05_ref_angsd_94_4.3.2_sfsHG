@@ -1,0 +1,36 @@
+#!/bin/bash
+#PBS -N 05_ref_angsd_94_4.3.2_sfHG
+#PBS -l select=1:ncpus=8:mem=8GB
+#PBS -l walltime=48:00:00
+#PBS -m e
+#PBS -M 25405942@sun.ac.za
+
+# Load ANGSD module
+module load app/ANGSD/0.938
+
+angsd \
+-bam ~/msc/00_info/bamlist_94 \
+-tmpdir ~/angsd_tmpdir \
+-out ~/msc/99_angsd/ref_angsd_4.3.2_sfHG \
+-GL 3 \
+-doGeno 10 \
+-dopost 3 \
+-ref ~/msc/05_refmap/genome_updated/GCA_040869175.1_updated.fasta \
+-pest ~/msc/99_angsd/ref_angsd_3.1_SFS.saf.idx.ml \
+-nThreads 8 \
+-minInd 57 \
+-SNP_pval 1e-6 \
+-geno_minDepth 4 \
+-geno_maxDepth 58 \
+-minMaf 0.01 \
+-postCutoff 0.95 \
+-dosnpstat 1 \
+-doHWE 1 \
+-doMajorMinor 1 \
+-doMaf 1 \
+-doCounts 1 \
+-doDepth 1 \
+-doPlink 2 \
+-beagleProb 1 \
+-doBcf 1 \
+--ignore-RG 0

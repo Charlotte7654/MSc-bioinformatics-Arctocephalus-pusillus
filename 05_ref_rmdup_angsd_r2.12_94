@@ -1,0 +1,29 @@
+#!/bin/bash
+#PBS -N 05_ref_rmdup_angsd_r2.12_94
+#PBS -l select=1:ncpus=8:mem=8GB
+#PBS -l walltime=48:00:00
+#PBS -m e
+#PBS -M 25405942@sun.ac.za
+
+# Load ANGSD module
+module load app/ANGSD/0.938
+
+angsd \
+-bam ~/msc/00_info/bamlist_94 \
+-GL 3 \
+-tmpdir ~/angsd_tmpdir \
+-out ~/msc/99_angsd/ref_angsd_2.12 \
+-doGlf 2 \
+-nThreads 8 \
+-minInd 57 \
+-SNP_pval 1e-6 \
+-doCounts 1 \
+-doMaf 1 \
+-minMaf 0.01 \
+-doMajorMinor 1 \
+-doBcf 1 \
+-doSNPstat 1 \
+-doDepth 1 \
+-doHWE 1 \
+--ignore-RG 0 \
+-doPost 1

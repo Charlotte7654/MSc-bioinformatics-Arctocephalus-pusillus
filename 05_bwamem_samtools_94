@@ -1,0 +1,24 @@
+#!/bin/bash
+#PBS -N 05_bwamem_samtools_94
+#PBS -l select=1:ncpus=30:mem=60GB
+#PBS -l walltime=168:00:00
+#PBS -m e
+#PBS -M 25405942@sun.ac.za
+
+cd $PBS_O_WORKDIR 
+
+module load app/bwa/0.7.13
+module load app/samtools/1.19.2
+
+for x in $(cat ~/msc/00_info/samplelist94.txt) 
+
+do 
+
+    bwa mem ~/msc/05_refmap/genome_updated/agaz_db \
+    ~/msc/00_samples_unzipped/$x.1.fq \
+    ~/msc/00_samples_unzipped/$x.2.fq | \
+    samtools view -b -h - | \
+    samtools sort -o ~/msc/05_refmap/aligned_samples_updated_94/$x.sorted.bam -
+
+done
+
